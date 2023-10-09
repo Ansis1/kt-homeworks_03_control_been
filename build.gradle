@@ -10,13 +10,5 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-kotlin {
-    jvmToolchain(8)
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib'
 }
