@@ -2,15 +2,12 @@ package ru.netology
 
 fun main() {
     var seconds = 1
-    System.out.format("%s%15s%10s", "10", "100", "11")
-    System.out.println()
-
     do {
 
         println(agoToText(seconds)) // m: ${seconds / 60}")
         seconds += 60
     } while (seconds < 60 * 60)
-/*
+
     do {
         println(agoToText(seconds)) // H: ${(seconds / 60) / 60}")
         seconds += 60 * 60
@@ -19,7 +16,7 @@ fun main() {
     do {
         println(agoToText(seconds)) // D: ${((seconds / 60) / 60) / 24}")
         seconds += 60 * 60 * 24
-    } while (seconds < 60 * 60 * 24 * 4)*/
+    } while (seconds < 60 * 60 * 24 * 4)
 
 }
 
@@ -42,10 +39,10 @@ fun hoursOrMinutesAgo(seconds: Int, isHours: Boolean = false): String {
     if (isHours) {
         val hours = (seconds / 60) / 60
         return when {
-            preFastFastNumberIsEquals( 1) -> "$hours час"
-            preFastFastNumberIsEquals( 2) ||
-                    preFastFastNumberIsEquals( 3) ||
-                    preFastFastNumberIsEquals( 4)
+            preFastFastNumberIsEquals(hours) == 1 -> "$hours час"
+            preFastFastNumberIsEquals(hours) == 2 ||
+                    preFastFastNumberIsEquals(hours) == 3 ||
+                    preFastFastNumberIsEquals(hours) == 4
             -> "$hours часа"
 
             else -> "$hours часов"
@@ -55,12 +52,11 @@ fun hoursOrMinutesAgo(seconds: Int, isHours: Boolean = false): String {
     } else {
 
         val minutes = seconds / 60;
-        System.out.format("%5s%10d%10s%5s", minutes % 10, minutes % 100, minutes % 11, "  ")
         return when {
-            preFastFastNumberIsEquals( 1) -> "$minutes минуту"
-            preFastFastNumberIsEquals( 2) ||
-                    preFastFastNumberIsEquals( 3) ||
-                    preFastFastNumberIsEquals( 4 )
+            preFastFastNumberIsEquals(minutes) == 1 -> "$minutes минуту"
+            preFastFastNumberIsEquals(minutes) == 2 ||
+                    preFastFastNumberIsEquals(minutes) == 3 ||
+                    preFastFastNumberIsEquals(minutes) == 4
             -> "$minutes минуты"
 
             else -> "$minutes минут"
@@ -70,22 +66,20 @@ fun hoursOrMinutesAgo(seconds: Int, isHours: Boolean = false): String {
 
 fun preFastFastNumberIsEquals(
     number: Int,
-    numberEq: Int = 2,
-    ): Boolean {
+): Int {
 
-    val firstN = number % 10
-    val secondN = number % 100
+    return when {
 
-    return if (number > 9){
+        number == 1 || number in 21..61 step 10 -> 1 //-ту / -с
+        (number in 2..4
+                || number in 22..24
+                || number in 32..34
+                || number in 42..44
+                || number in 52..54)
+        -> 2 //-ты / -са
 
-        when{
-            firstN == numberEq && secondN == numberEq || secondN == numberEq -> true
-            secondN == numberEq && firstN != numberEq -> true
-            else -> firstN == numberEq
-
-        }
-
-    }else {
-        true
+        else -> 0 // -т / -ов
     }
+
+
 }
